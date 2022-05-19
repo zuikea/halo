@@ -3,7 +3,7 @@ FROM gradle:7.4.2-jdk11 AS build-env
 # ADD --chown=gradle:gradle application
 WORKDIR /applicarion
 RUN \
-    gradle clean build buildDocker -x test  --info;
+    gradle clean build;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
