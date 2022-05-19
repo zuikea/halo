@@ -1,9 +1,9 @@
 # Build jar
 FROM gradle:7.4.2-jdk11 AS build-env
-#ADD --chown=gradle:gradle application
+ADD --chown=gradle:gradle application
 WORKDIR /applicarion
 RUN \
-    gradle -b build.gradle;
+    gradle build -halo test
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
