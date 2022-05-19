@@ -151,14 +151,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-task buildDocker(type: Docker, dependsOn: build) {
-    applicationName = jar.baseName
-    tagVersion = "latest"
-    dockerfile = file('Dockerfile')
-    doFirst {
-        copy {
-            from jar
-            into stageDir
-        }
-    }
-}
