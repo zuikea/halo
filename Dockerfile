@@ -1,3 +1,11 @@
+# Build jar
+FROM gradle:7.4.2-jdk11 AS build-env
+ADD application
+ADD --chown=gradle:gradle application
+WORKDIR /applicarion
+RUN \
+    gradle -b build.gradle assemble --info;
+
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
 ARG JAR_FILE=build/libs/*.jar
