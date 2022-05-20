@@ -4,7 +4,7 @@ ADD --chown=gradle:gradle . /application
 WORKDIR /application
 RUN \
     gradle bootJar --info; \
-    ll -a;
+    ls;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
