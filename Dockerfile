@@ -7,7 +7,7 @@ ADD --chown=gradle:gradle . /application
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /application
 RUN \
-    cd /build/libs;
+    cd /build/libs; \
     ls -a; \
     pwd;
 COPY --from=build-env /build/libs/*.jar application.jar
