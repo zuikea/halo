@@ -6,8 +6,9 @@ RUN gradle build -x test;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /application
+RUN ls;
 COPY --from=build-env build/libs/*.jar application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+# RUN java -Djarmode=layertools -jar application.jar extract
 
 ################################
 
