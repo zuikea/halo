@@ -4,7 +4,7 @@ ADD --chown=gradle:gradle . /application
 WORKDIR application
 RUN \
     gradle bootJar; \
-    cd /build/libs; \
+    cd build/libs; \
     ls;
 COPY build/libs/*.jar application.jar
 
