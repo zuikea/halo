@@ -8,7 +8,7 @@
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /application
-RUN \
+RUN 
     mkdir /build; \
     cd /build; \
     mkdir /libs; \
