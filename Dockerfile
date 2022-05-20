@@ -1,21 +1,17 @@
 # Build jar
-# FROM gradle:6.9.0-jdk11 AS build-env
+FROM gradle:6.9.0-jdk11 AS build-env
 # WORKDIR /application
 # ADD --chown=gradle:gradle . /application
-# RUN gradle build -x test --info;
+# RUN gradle build -x test --info; \
+#    ls -a;
+    
 # RUN mkdir build/libs; \
-#    wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar;
-RUN \
-    mkdir /build; \
-    cd /build; \
-    mkdir /libs; \
-    wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar; 
+#   wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar;
     
     
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /application
-
-COPY  /build/libs/*.jar application.jar
+ADD  https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 ################################
