@@ -9,9 +9,10 @@
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /application
 RUN \
-    mkdir /build/libs; \
+    mkdir /build; \
+    cd /build; \
+    mkdir /libs; \
     wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar; \
-    pwd;
 COPY  /build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
