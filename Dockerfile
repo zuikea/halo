@@ -1,6 +1,6 @@
 # Build jar
 FROM gradle:7.4.2-jdk11 AS build-env
-ADD --chown=gradle:gradle . /app
+ADD --chown=gradle:gradle . /application
 WORKDIR /application
 RUN \
     gradle bootJar;
