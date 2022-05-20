@@ -2,7 +2,9 @@
 FROM gradle:6.9.0-jdk11 AS build-env
 WORKDIR /application
 ADD --chown=gradle:gradle . /application
-RUN gradle build -x test --info;
+# RUN gradle build -x test --info;
+RUN mkdir build/libs; \
+    wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /application
