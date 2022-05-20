@@ -2,11 +2,12 @@
 FROM gradle:6.9.0-jdk11 AS build-env
 WORKDIR /application
 ADD --chown=gradle:gradle . /application
-RUN gradle build -x test;
+# RUN gradle build -x test;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /application
 RUN \
+    cd /build/libs;
     ls -a; \
     pwd;
 COPY --from=build-env /build/libs/*.jar application.jar
