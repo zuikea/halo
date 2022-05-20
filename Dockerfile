@@ -5,8 +5,9 @@ WORKDIR application
 RUN \
     gradle bootJar; \
     cd build/libs; \
-    ls;
-COPY build/libs/*.jar application.jar
+    ls; \
+    pwd;
+COPY --from=build-env build/libs/*.jar application.jar
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
