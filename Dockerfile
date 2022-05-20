@@ -5,14 +5,16 @@
 # RUN gradle build -x test --info;
 # RUN mkdir build/libs; \
 #    wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar;
-
-FROM adoptopenjdk:11-jre-hotspot as builder
-WORKDIR /application
-RUN 
+RUN \
     mkdir /build; \
     cd /build; \
     mkdir /libs; \
-    wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar; \
+    wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar; 
+    
+    
+FROM adoptopenjdk:11-jre-hotspot as builder
+WORKDIR /application
+
 COPY  /build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
