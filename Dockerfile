@@ -8,8 +8,11 @@ RUN \
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
-COPY --from=build-env /build/libs/*.jar application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+# COPY --from=build-env /build/libs/*.jar application.jar
+RUN \
+    pwd; \
+    ls; \
+    java -Djarmode=layertools -jar application.jar extract
 
 ################################
 
