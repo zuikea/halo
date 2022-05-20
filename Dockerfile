@@ -4,14 +4,12 @@ ADD --chown=gradle:gradle . /application
 WORKDIR /application
 RUN \
     gradle bootJar; \
-    cd build; \
-    ls; \
-    cd libs; \
+    cd /build/libs; \
     ls;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
-COPY --from=build-env build/libs/*.jar application.jar
+COPY /build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 ################################
