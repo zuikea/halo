@@ -1,11 +1,11 @@
 # Build jar
 FROM gradle:6.9.0-jdk11 AS build-env
-WORKDIR application
+WORKDIR /application
 ADD --chown=gradle:gradle . /application
 RUN gradle build -x test;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
-WORKDIR application
+WORKDIR /application
 COPY --from=build-env build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
@@ -13,7 +13,7 @@ RUN java -Djarmode=layertools -jar application.jar extract
 
 FROM adoptopenjdk:11-jre-hotspot
 MAINTAINER johnniang <johnniang@fastmail.com>
-WORKDIR application
+WORKDIR /application
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
 COPY --from=builder application/snapshot-dependencies/ ./
