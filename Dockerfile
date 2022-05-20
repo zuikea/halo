@@ -1,9 +1,9 @@
 # Build jar
 FROM gradle:6.9.0-jdk11 AS build-env
-ADD --chown=gradle:gradle . /application
 WORKDIR application
+ADD --chown=gradle:gradle . /application
 RUN \
-    gradle bootJar;
+    gradle build -x test;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
