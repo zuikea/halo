@@ -6,13 +6,10 @@ RUN \
     gradle bootJar; \
     cd /build/libs; \
     ls;
+COPY build/libs/*.jar application.jar
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR application
-RUN \
-    cd /build/libs; \
-    ls;
-COPY --from=build-env /build/libs/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 ################################
