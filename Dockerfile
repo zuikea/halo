@@ -2,7 +2,7 @@
 FROM gradle:6.9.0-jdk11 AS build-env
 WORKDIR /application
 ADD --chown=gradle:gradle . /application
-# RUN gradle build -x test;
+RUN gradle build -x test --info;
 
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /application
