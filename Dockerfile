@@ -1,20 +1,25 @@
-# Build jar
-# FROM gradle:6.9.0-jdk11 AS build-env
-# WORKDIR /application
-# ADD --chown=gradle:gradle . /application
-# RUN gradle build -x test --info; \
-#    ls -a;
-    
-# RUN mkdir build/libs; \
-#   wget https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar;
-    
-    
-FROM adoptopenjdk:11-jre-hotspot as builder
-WORKDIR /application
-ADD  https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
 
-################################
+# 直接运行可以  
+#FROM adoptopenjdk:11-jre-hotspot as builder
+#WORKDIR /application
+#ADD  https://github.com/halo-dev/halo/releases/download/v1.5.3/halo-1.5.3.jar application.jar
+#RUN java -Djarmode=layertools -jar application.jar extract	
+
+
+
+# Build jar
+FROM gradle:6.9.0-jdk11 AS build-env
+WORKDIR /application
+ADD --chown=gradle:gradle . /application
+RUN gradle build -x test --info;
+    
+
+FROM eclipse-temurin:11-jre as builder
+WORKDIR /application
+#ARG JAR_FILE=build/libs/*.jar
+#COPY ${JAR_FILE} application.jar
+COPY --from=build-env /application/build/libs/ application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
 FROM adoptopenjdk:11-jre-hotspot
 MAINTAINER johnniang <johnniang@fastmail.com>
