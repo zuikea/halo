@@ -19,7 +19,8 @@ WORKDIR /application
 #ARG JAR_FILE=build/libs/*.jar
 #COPY ${JAR_FILE} application.jar
 COPY --from=build-env /application/build/libs/ application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+#RUN java -Djarmode=layertools -jar application.jar extract
+RUN java -jar application.jar
 
 FROM adoptopenjdk:11-jre-hotspot
 MAINTAINER johnniang <johnniang@fastmail.com>
