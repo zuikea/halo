@@ -16,14 +16,10 @@ RUN gradle build -x test --info;
 
 FROM eclipse-temurin:11-jre as builder
 WORKDIR /application
-#ARG JAR_FILE=build/libs/*.jar
-#COPY ${JAR_FILE} application.jar
-COPY --from=build-env /application/build/libs/ application.jar
-RUN \
-    cd /application/build/libs; \
-    ls -a; \
-    java -Djarmode=layertools -jar application.jar extract
-#RUN java -jar application.jar
+ARG VERSION=1.6.0-SNAPSHOT
+ARG JAR_FILE=/application/build/libs/*${VERSION}.jar
+COPY --from=build-env ${JAR_FILE}  application.jar
+RUN  java -Djarmode=layertools -jar application.jar extract
 
 FROM adoptopenjdk:11-jre-hotspot
 MAINTAINER johnniang <johnniang@fastmail.com>
