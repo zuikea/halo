@@ -17,9 +17,9 @@ spring:
       enabled: always
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://containers-us-west-57.railway.app:7656/railway?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: root
-    password: FzB6bJci3GseszXp9D9D
+    url: url
+    username: usename
+    password: password
   #datasource:
     #type: com.zaxxer.hikari.HikariDataSource
 
