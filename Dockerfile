@@ -16,7 +16,7 @@ RUN gradle build -x test --info;
 
 FROM eclipse-temurin:11-jre as builder
 WORKDIR /application
-ARG VERSION=1.6.0-SNAPSHOT
+ARG VERSION=1.5.3-SNAPSHOT
 ARG JAR_FILE=/application/build/libs/*${VERSION}.jar
 COPY --from=build-env ${JAR_FILE}  application.jar
 RUN  java -Djarmode=layertools -jar application.jar extract
