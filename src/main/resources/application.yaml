@@ -15,19 +15,19 @@ spring:
   output:
     ansi:
       enabled: always
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: url
-    username: usename
-    password: password
   #datasource:
-    #type: com.zaxxer.hikari.HikariDataSource
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: url
+    #username: usename
+    #password: password
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
 
-    # H2 database configuration.
-    #driver-class-name: org.h2.Driver
-    #url: jdbc:h2:file:${halo.work-dir}/db/halo
-    #username: admin
-    #password: 123456
+    #H2 database configuration.
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:${halo.work-dir}/db/halo
+    username: admin
+    password: 123456
   jpa:
     hibernate:
       ddl-auto: update
