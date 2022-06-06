@@ -1,14 +1,20 @@
-FROM adoptopenjdk:11-jre-hotspot as builder
-WORKDIR application
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+# Build jar
+FROM gradle:6.9.0-jdk11 AS build-env
+WORKDIR /application
+ADD --chown=gradle:gradle . /application
+RUN gradle build -x test --info;
+    
 
-################################
+FROM eclipse-temurin:11-jre as builder
+WORKDIR /application
+ARG VERSION=SNAPSHOT
+ARG JAR_FILE=/application/build/libs/*${VERSION}.jar
+COPY --from=build-env ${JAR_FILE}  application.jar
+RUN  java -Djarmode=layertools -jar application.jar extract
 
 FROM adoptopenjdk:11-jre-hotspot
 MAINTAINER johnniang <johnniang@fastmail.com>
-WORKDIR application
+WORKDIR /application
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
 COPY --from=builder application/snapshot-dependencies/ ./
