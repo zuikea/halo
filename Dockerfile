@@ -9,7 +9,7 @@ FROM eclipse-temurin:11-jre as builder
 WORKDIR /application
 #ARG VERSION=SNAPSHOT
 #ARG JAR_FILE=/application/build/libs/*${VERSION}.jar
-ARG JAR_FILE=/application/build/libs/*.jar
+ARG JAR_FILE=/application/build/libs/!-plain.jar
 COPY --from=build-env ${JAR_FILE}  application.jar
 RUN  java -Djarmode=layertools -jar application.jar extract
 
