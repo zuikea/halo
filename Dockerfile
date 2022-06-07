@@ -2,14 +2,15 @@
 FROM gradle:6.9.0-jdk11 AS build-env
 WORKDIR /application
 ADD --chown=gradle:gradle . /application
-RUN gradle build -x test --info;
+#1.RUN gradle build -x test --info;
+RUN gradlew clean build -x jar --info;
     
 
 FROM eclipse-temurin:11-jre as builder
 WORKDIR /application
-#ARG VERSION=SNAPSHOT
-#ARG JAR_FILE=/application/build/libs/*${VERSION}.jar
-ARG JAR_FILE=/application/build/libs/!-plain.jar
+#1.#ARG VERSION=SNAPSHOT
+#1.#ARG JAR_FILE=/application/build/libs/*${VERSION}.jar
+ARG JAR_FILE=/application/build/libs/*.jar
 COPY --from=build-env ${JAR_FILE}  application.jar
 RUN  java -Djarmode=layertools -jar application.jar extract
 
