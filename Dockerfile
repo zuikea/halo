@@ -3,7 +3,7 @@ FROM gradle:6.9.0-jdk11 AS build-env
 WORKDIR /application
 ADD --chown=gradle:gradle . /application
 #1.RUN gradle build -x test --info;
-RUN gradlew clean build -x jar --info;
+RUN gradlew clean build -x jar;
     
 
 FROM eclipse-temurin:11-jre as builder
