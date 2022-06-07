@@ -1,1 +1,1 @@
-web: Dserver.port=$PORT $JAVA_OPTS -jar build/libs/*SNAPSHOT.jar
+web: java Dserver.port=$PORT $JAVA_OPTS -jar build/libs/*SNAPSHOT.jar
